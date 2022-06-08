@@ -1,5 +1,7 @@
 package solution.linkedlist.easy;
 
+import solution.linkedlist.ListNode;
+
 /**
  * @see <a href="https://leetcode.com/problems/reverse-linked-list/">Task 206</a>
  */
@@ -17,22 +19,5 @@ public class ReverseLinkedList {
         ListNode temp = node.next;
         node.next = prev;
         return reverseList(temp, node);
-    }
-
-    private static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
     }
 }
