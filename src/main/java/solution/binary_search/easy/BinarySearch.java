@@ -1,5 +1,8 @@
 package solution.binary_search.easy;
 
+/**
+ * @see <a href="https://leetcode.com/problems/binary-search/">Task 704</a>
+ */
 public class BinarySearch {
 
     /**
