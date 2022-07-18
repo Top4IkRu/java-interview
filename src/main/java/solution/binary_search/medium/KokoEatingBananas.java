@@ -3,7 +3,7 @@ package solution.binary_search.medium;
 import java.util.Arrays;
 
 /**
- * @see <a href="Koko Eating Bananas">Task 875</a>
+ * @see <a href="https://leetcode.com/problems/koko-eating-bananas/">Task 875</a>
  */
 public class KokoEatingBananas {
     public int minEatingSpeed(int[] piles, int h) {
