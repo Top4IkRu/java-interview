@@ -36,4 +36,25 @@ public class RemoveDuplicatesFromSortedArray2 {
             pos++;
         }
     }
+
+    public int removeDuplicates2(int[] nums) {
+        if (nums.length == 0) return 0;
+
+        int startIndex = 1;
+        // count the time of duplicate numbers occurence
+        int precCounter = 1;
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] == nums[i - 1]) {
+                if (precCounter < 2) {
+                    nums[startIndex++] = nums[i];
+                }
+                precCounter++;
+            } else {
+                precCounter = 1;
+                nums[startIndex++] = nums[i];
+            }
+        }
+        return startIndex;
+    }
 }
