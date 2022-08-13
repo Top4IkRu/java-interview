@@ -1,4 +1,4 @@
-package solution.linkedlist.medium;
+package solution.linked_list.medium;
 
 /**
  * @see <a href="https://leetcode.com/problems/find-the-duplicate-number/">Task 287</a>

@@ -1,6 +1,6 @@
-package solution.linkedlist.medium;
+package solution.linked_list.medium;
 
-import solution.linkedlist.ListNode;
+import solution.linked_list.ListNode;
 
 /**
  * @see <a href="https://leetcode.com/problems/add-two-numbers/">Task 2</a>

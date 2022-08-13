@@ -1,6 +1,6 @@
-package solution.linkedlist.easy;
+package solution.linked_list.easy;
 
-import solution.linkedlist.ListNode;
+import solution.linked_list.ListNode;
 
 /**
  * @see <a href="https://leetcode.com/problems/linked-list-cycle/">Task 141</a>

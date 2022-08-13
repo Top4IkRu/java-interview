@@ -1,7 +1,7 @@
 package solution.two_pointers.medium;
 
 /**
- * @see solution.linkedlist.easy.LinkedListCycle
+ * @see solution.linked_list.easy.LinkedListCycle
  * @see <a href="https://leetcode.com/problems/linked-list-cycle-ii/">Task 142</a>
  */
 public class LinkedListCycle2 {

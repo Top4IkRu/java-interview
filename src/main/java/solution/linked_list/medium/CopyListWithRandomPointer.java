@@ -1,4 +1,4 @@
-package solution.linkedlist.medium;
+package solution.linked_list.medium;
 
 import java.util.HashMap;
 import java.util.Map;
