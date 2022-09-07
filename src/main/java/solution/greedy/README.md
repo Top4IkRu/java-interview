@@ -1,9 +1,18 @@
 ## Теория:
 
+Жадный алгоритм - это метод, при котором решение строится пошагово, всегда выбирая лучший вариант здесь и сейчас. Таким
+образом, задачи, где выбор локально оптимального решения приводит к глобальному оптимальному решению, наиболее подходят
+для применения жадного подхода.
+
 ### Где я смотрел:
 
 1. Geeksforgeeks (Много примеров использования) - (https://www.geeksforgeeks.org/greedy-algorithms/)
 2. Статья с визуализацией и задачками на понимание - (https://brilliant.org/wiki/greedy-algorithm/)
+3. Для тех кто любит много теории. "Greedy Algorithms" by Stanford University
+    1. Greedy Algorithms Part 1: (https://web.stanford.edu/class/archive/cs/cs161/cs161.1138/lectures/13/Small13.pdf)
+    2. Greedy Algorithms Part 2: (https://web.stanford.edu/class/archive/cs/cs161/cs161.1138/lectures/14/Small14.pdf)
+    3. Greedy Algorithms Part 3: (https://web.stanford.edu/class/archive/cs/cs161/cs161.1138/lectures/15/Small15.pdf)
+    4. Article: (http://web.stanford.edu/class/archive/cs/cs161/cs161.1166/lectures/lecture14.pdf)
 
 ## Пример
 
