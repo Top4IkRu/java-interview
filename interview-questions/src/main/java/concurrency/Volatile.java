@@ -1,7 +1,5 @@
 package concurrency;
 
-import org.junit.Test;
-
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
@@ -11,21 +9,20 @@ import java.util.function.Consumer;
  * других механизмов синхронизации, изменения переменной, внесенные одним потоком, могут не отразиться в значениях,
  * видимых другим потокам.
  * <p>
- * ATTENTION: Volatile сам по себе не гарантирует атомарности или последовательности операций.
+ * ATTENTION: concurrency.Volatile сам по себе не гарантирует атомарности или последовательности операций.
  * <p>
  * Доп материалы:
- * 1. <a href="https://www.baeldung.com/java-volatile">Volatile</a>
+ * 1. <a href="https://www.baeldung.com/java-volatile">concurrency.Volatile</a>
  * 2. <a href="https://www.baeldung.com/java-atomic-variables">Atomic</a>
  */
 
-public class VolatileTest {
+public class Volatile {
 
-    private int value = 0;
-    private volatile int volatileValue = value;
-    private final AtomicInteger atomicInteger = new AtomicInteger(value);
+    private static int value = 0;
+    private static volatile int volatileValue = value;
+    private static final AtomicInteger atomicInteger = new AtomicInteger(value);
 
-    @Test
-    public void check() throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
         int repeatTime = 1000;
         int numberOfThreads = 100;
         int expect = repeatTime * numberOfThreads;
@@ -41,7 +38,7 @@ public class VolatileTest {
     }
 
 
-    private void doTheWorkInParallel(
+    private static void doTheWorkInParallel(
             int repeatTime,
             int numberOfThreads,
             Consumer<Integer> action
