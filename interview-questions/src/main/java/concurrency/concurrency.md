@@ -5,6 +5,9 @@
 3. [Что такое race condition и как его избежать в Java?](#что-такое-race-condition-и-как-его-избежать-в-java)
 4. [Какие методы синхронизации доступны в Java и в чем их различия?](#какие-методы-синхронизации-доступны-в-java-и-в-чем-их-различия)
 5. [Что такое монитор (monitor) и как он связан с блокировками в Java?](#что-такое-монитор-monitor-и-как-он-связан-с-блокировками-в-java)
+6. [Что такое deadlock (взаимная блокировка) и как его избежать?](#что-такое-deadlock-взаимная-блокировка-и-как-его-избежать)
+7. [Как работает пул потоков (thread pool) в Java и как его создать?](#как-работает-пул-потоков-thread-pool-в-java-и-как-его-создать)
+8. [Что такое Callable и Future в Java concurrency?](#что-такое-callable-и-future-в-java-concurrency)
 
 ---
 
@@ -298,4 +301,136 @@ public class Message {
     }
 }
 
+```
+
+### Что такое deadlock (взаимная блокировка) и как его избежать?
+
+Взаимная блокировка, или deadlock, возникает, когда два или более потока оказываются заблокированными и ожидают друг
+друга для освобождения ресурсов. Как результат, потоки останавливаются и не могут продолжить свою работу.
+
+```java
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class DeadlockExample {
+    private Lock lock1 = new ReentrantLock();
+    private Lock lock2 = new ReentrantLock();
+
+    public void firstCall() {
+        lock1.lock();
+        try {
+            // Критическая секция, требующая lock2
+            lock2.lock();
+            try {
+                // Выполнение операций
+            } finally {
+                lock2.unlock();
+            }
+        } finally {
+            lock1.unlock();
+        }
+    }
+
+    public void secondCall() {
+        lock2.lock();
+        try {
+            // Критическая секция, требующая lock1
+            lock1.lock();
+            try {
+                // Выполнение операций
+            } finally {
+                lock1.unlock();
+            }
+        } finally {
+            lock2.unlock();
+        }
+    }
+}
+```
+
+#### Как избежать deadlock
+
+Чтобы избежать deadlock, необходимо следовать некоторым правилам:
+
+1. Избегайте циклической зависимости блокировок.
+2. Используйте только одну блокировку за раз, если это возможно.
+3. Используйте стратегии предотвращения deadlock, такие как упорядочивание блокировок или ожидание с тайм-аутом.
+4. Используйте инструменты анализа deadlock, чтобы выявить потенциальные проблемы заранее.
+
+### Как работает пул потоков (thread pool) в Java и как его создать?
+
+Пул потоков (**thread pool**) в Java представляет собой группу предварительно созданных потоков, которые могут
+выполнять задачи асинхронно. Он обеспечивает эффективное управление потоками и повторное использование уже созданных
+потоков для выполнения задач.
+В Java пул потоков можно создать с использованием класса **ExecutorService**, который предоставляет интерфейс для
+управления потоками и выполнения задач.
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ThreadPoolExample {
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(5); // Создание пула потоков с фиксированным размером
+
+        for (int i = 0; i < 10; i++) {
+            Runnable task = new MyTask();
+            executor.execute(task); // Передача задачи на выполнение пулу потоков
+        }
+
+        executor.shutdown(); // Завершение работы пула потоков
+    }
+}
+
+class MyTask implements Runnable {
+    public void run() {
+        // Код задачи
+    }
+}
+```
+
+### Что такое Callable и Future в Java concurrency?
+
+**Callable** и **Future** - это интерфейсы в пакете *java.util.concurrent*, предоставляющие возможность возвращать
+результаты выполнения задач в многопоточной среде.
+
+**Callable** - это функциональный интерфейс, представляющий задачу, которая может быть выполнена и возвращать результат.
+Он объявляет метод ```call()```, который возвращает результат выполнения задачи.
+
+**Future** - это интерфейс, представляющий результат выполнения задачи, который может быть доступен в будущем.
+Он предоставляет методы для проверки статуса задачи, ожидания ее выполнения и получения результата.
+
+```java
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class CallableFutureExample {
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        Callable<Integer> task = new MyTask();
+
+        Future<Integer> future = executor.submit(task); // Передача задачи на выполнение и получение Future
+
+        // Другие действия...
+
+        try {
+            Integer result = future.get(); // Ожидание результата выполнения задачи
+            System.out.println("Результат: " + result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        executor.shutdown();
+    }
+}
+
+class MyTask implements Callable<Integer> {
+    public Integer call() throws Exception {
+        // Код задачи
+        return 1; // Возврат результата
+    }
+}
 ```
