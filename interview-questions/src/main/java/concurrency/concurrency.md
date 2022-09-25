@@ -434,3 +434,25 @@ class MyTask implements Callable<Integer> {
     }
 }
 ```
+
+## Дополнительные материалы
+
+### Статьи
+
+1. [Notes On Concurrency In Jvm](https://wuciawe.github.io/jvm/2017/02/13/notes-on-concurrency-in-jvm.html)
+2. [Разбор основных концепций параллелизма](https://habr.com/ru/company/otus/blog/353414/)
+3. [А как же всё-таки работает многопоточность? Часть I: синхронизация](https://web.archive.org/web/20220628134440/https://habr.com/ru/post/143237/)
+4. [Модель памяти в примерах и не только](https://web.archive.org/web/20220519121335/https://habr.com/en/post/133981/)
+5. [Глубокое погружение в Java Memory Model](https://habr.com/en/articles/685518/)
+6. [JSR 133 (Java Memory Model)](https://habr.com/en/companies/golovachcourses/articles/221133/)
+7. [Lock-Free Data](https://www.baeldung.com/lock-free-programming)
+8. [Difference Between Java Threads and OS Threads](https://www.geeksforgeeks.org/difference-between-java-threads-and-os-threads/)
+
+### Youtube лекции
+
+1. [Алексей Шипилёв — Перформанс: Что В Имени Тебе Моём?](https://youtu.be/CgRJUqO-dMQ)
+2. [Глеб Смирнов — Расчленяя многопоточность](https://youtu.be/arGcok_I_DY)
+3. [Роман Елизаров — Многопоточное программирование — теория и практика](https://youtu.be/mf4lC6TpclM)
+4. [Алексей Шипилёв - Java Memory Model Pragmatics, part 1](https://youtu.be/noDnSV7NCtw)
+5. [Алексей Шипилёв - Java Memory Model Pragmatics, part 2](https://youtu.be/Ky1_5mabd18)
+6. [Роман Елизаров — Жди своего счастья без блокировки!](https://youtu.be/XivoUctdPIU)
