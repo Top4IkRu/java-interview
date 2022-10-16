@@ -1336,3 +1336,208 @@ public class MathUtils {
     }
 }
 ```
+
+### 22. Что такое пакет? Как создать пакет?
+
+Пакет (package) - это способ организации классов, который помогает логически группировать связанные классы вместе и
+предотвратить конфликты имен.
+
+Для того чтобы создать пакет, вам нужно создать иерархию каталогов (пример `com.example.myapp`), и в каталоге `myapp`
+создать класс (пример `MyClass.class`) и в классе указать каталог `package com.example.myapp;`
+
+Иерархия:
+
+```
+com/
+    example/
+        myapp/
+            MyClass.java
+```
+
+Класс:
+
+```java
+package com.example.myapp;
+
+public class MyClass {
+    // Код класса
+}
+```
+
+### 23. Что такое конструкторы? Конструктор по-умолчанию?
+
+Конструктор - это специальный метода, который вызывается при создании объекта данного класса. Они используются для
+начальной инициализации объекта.
+
+Пример конструктора:
+
+```java
+public class Person {
+    private final String name;
+    private final int age;
+
+    // Конструктор класса Person
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Другие методы класса
+}
+```
+
+Если в классе **не определен ни один конструктор**, то компилятор сам создаст дефолтный конструктор (конструктор
+по-умолчанию). Этот конструктор не имеет параметров и инициализирует все поля дефолтными
+значениями (`int=0`, `boolean=false`, `object=null` итд). Стоит отдельно отметить,
+
+Пример класса с конструктором по умолчанию:
+
+```java
+public class Person {
+    private String name;
+    private int age;
+
+    // Другие методы класса
+}
+```
+
+### 24. Будет ли в классе конструктор и какой, если при его создании ни один не был задан?
+
+Да, компилятор создаст дефолтный конструктор без параметров (См вопрос выше).
+
+### 25. Будет ли создан автоматически конструктор по-умолчанию, если в созданном классе есть любой другой конструктор?
+
+Нет, дефолтный конструктор создается только если в классе вообще нет ни одного конструктора.
+
+### 26. Можно ли в классе вызвать один конструктор из другого? Как это сделать?
+
+Да, мы можем вызвать один конструктор из другого с помощью ключевого слова `this`. Такие вызовы называются "цепочкой
+конструкторов" и позволяют переиспользовать уже написанный код, а так же использовать значения по-умолчанию для каких-то
+полей.
+
+Пример:
+Давайте представим, что мы хотим описать студента и мы знаем, что у нас в университете 80% студентов мужского пола, а
+так же мы из создаем только в момент поступления, те 95% из них по 18 лет.
+
+```java
+public class Student {
+    private String name;
+    private int age;
+    private String gender;
+
+    // Конструктор 1
+    public Student(String name, int age, String gender) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
+    // Конструктор 2
+    public Student(String name, int age) {
+        this(name, age, "Man");
+    }
+
+    // Конструктор 3
+    public Student(String name) {
+        this(name, 18);
+    }
+
+    // Другие методы класса
+}
+```
+
+Тогда мы можем определить класс студента как показано ниже. У нас есть конструктор 1 со всеми параметрами, так же есть
+конструктор в которой можно передать только `name` и `age` (к примеру если студенту 17 лет). А так же есть
+конструктор номер 3 в котором передается только `name`, и тогда мы создадим студента мужского поля в возрасте 18 лет.
+
+```java
+public class Example {
+    public static void main(String[] args) {
+        Student student1 = new Student("Anna", 17, "Woman");
+        Student student2 = new Student("Ivan", 19);
+        Student student3 = new Student("Nick");
+    }
+}
+```
+
+### 27. Как вызвать конструктор родителя?
+
+Чтобы вызвать конструктор родителя из подкласса мы должны использовать ключевое слово `super`. Вызов происходит
+аналогично тому как мы вызываем другой конструктор, те `super(аргументы)`.
+
+```java
+class Parent {
+    private int parentValue;
+
+    public Parent(int parentValue) {
+        this.parentValue = parentValue;
+    }
+}
+
+class Child extends Parent {
+    private int childValue;
+
+    public Child(int parentValue, int childValue) {
+        super(parentValue); // Вызываем конструктор родителя с параметром parentValue
+        this.childValue = childValue;
+    }
+}
+
+```
+
+### 28. Расскажи, что такое this и super? Когда мы обязаны использовать this и super?
+
+`this` - это ключевое слово, которое указывает на текущий объект. Используется, чтобы вызывать дургие конструкторы или
+же различать локальные переменные и поля класса.
+
+```java
+public class Student {
+    private int name;
+
+    public Student(int name) {
+        this.name = name; // Используем this для ссылки на поле класса name и установки значения из аргумента
+    }
+
+    public void sayName() {
+        System.out.println("My name is " + this.name); // Используем this для доступа к полю name
+    }
+
+    public void anotherMethod() {
+        sayName(); // Вызываем метод sayName() с использованием this
+        this.sayName(); // аналогичная запись, но мы так не пишет так как слишком долго xD
+    }
+}
+
+
+```
+
+`super` - это ключевое слово, которое указывает на родительский класс (суперкласс). Используется, чтобы получить доступ
+к полям, методам или конструктору родительского класса.
+
+```java
+public class Person {
+    protected String name; // использует protected, чтобы наследники могли использовать это поле
+
+    public Person(String name) {
+        this.name = name; // Используем this для ссылки на поле класса name и установки значения из аргумента
+    }
+}
+
+public class Student extends Person {
+    private int[] marks;
+
+    public Student(String name, int[] marks) {
+        super(name); // Вызываем конструктор родителя с помощью super
+        this.marks = marks;
+    }
+
+    public void sayName() {
+        System.out.println("My name is " + super.name); // Используем super для доступа к полю name в родительском классе
+    }
+
+    public void sayMarks() {
+        System.out.println("My marks are " + marks);
+        System.out.println("My marks are " + this.marks); // Аналогичная запись, но длинная, так что `this.` опускается
+    }
+}
+```
