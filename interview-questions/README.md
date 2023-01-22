@@ -125,11 +125,11 @@
 20. Какой `return` выполнится – если их два, один в `try`, другой в `finally`?
 21. Что если в конструкции `try finally` вылетело исключение сначала в `try` а потом в `finally`? Какое исключение
     вылетит? Что будет с другим?
-22. Что такое `try-with-resources`? Как работает эта конструкция?
-23. Что такое ресурс в конструкции `try-with-resources`?
-24. Что будет если при закрытии ресурса вылетит исключение в конструкции `try-with-resources`?
-25. Что такое подавленные исключения?
-26. Как достать подавленное исключение?
+22. Что такое подавленные исключения?
+23. Как достать подавленное исключение?
+24. Что такое `try-with-resources`? Как работает эта конструкция?
+25. Что такое ресурс в конструкции `try-with-resources`?
+26. Что будет если при закрытии ресурса вылетит исключение в конструкции `try-with-resources`?
 
 ## Threads
 
@@ -2458,6 +2458,59 @@ public class FinallyWithErrorExample {
             throw new StackOverflowError("Пример ошибки");
         } finally {
             System.out.println("Блок finally выполнен, даже при Error");
+        }
+    }
+}
+```
+
+### 19. Что будет если до перехода в `finally` был вызван `return`?
+
+Если в блоке `try` или `catch` был вызван `return`, то блок `finally` будет вызван в любом случае.
+
+### 20. Какой `return` выполнится – если их два, один в `try`, другой в `finally`?
+
+Результат блока `finally` будет всегда "главнее" чем результат работы блока `try` или `catch`. Давайте рассмотрим на
+примере.
+
+```java
+class Scratch {
+    public static void main(String[] args) {
+        System.out.println(testMethod()); // Выведет: 11
+    }
+
+    public static int testMethod() {
+        try {
+            return 10;
+        } finally {
+            System.out.println("Блок finally выполнен");
+            return 11;
+        }
+    }
+}
+```
+
+### 21. Что если в конструкции `try finally` вылетело исключение сначала в `try` а потом в `finally`? Какое исключение вылетит? Что будет с другим?
+
+Как мы обсуждали в прошлом вопросе, результат `finally` всегда "главнее" результат блоков `try` или `catch`. Абсолютно
+такая же логика и с исключениями. Если сначала было исключение в блоке `try` или `catch`, а потом в блоке `finally`, как
+результата мы увидим исключение из `finally`, а исключения из блока `try` или `catch` будут "подавлены". Поскольку
+считается, что ошибка в `finally` критичнее чем в `try` или `catch`.
+
+```java
+class Example {
+    public static void main(String[] args) {
+        try {
+            testMethod();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static int testMethod() {
+        try {
+            throw new RuntimeException("Exception from try block!");
+        } finally {
+            throw new RuntimeException("Exception from finally block!");
         }
     }
 }
