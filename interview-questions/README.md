@@ -124,12 +124,12 @@
 19. Что будет если до перехода в `finally` был вызван `return`?
 20. Какой `return` выполнится – если их два, один в `try`, другой в `finally`?
 21. Что если в конструкции `try finally` вылетело исключение сначала в `try` а потом в `finally`? Какое исключение
-    вылетит? Что будет с другим?
-22. Что такое подавленные исключения?
-23. Как достать подавленное исключение?
-24. Что такое `try-with-resources`? Как работает эта конструкция?
-25. Что такое ресурс в конструкции `try-with-resources`?
-26. Что будет если при закрытии ресурса вылетит исключение в конструкции `try-with-resources`?
+    вылетит? Что будет с другим? 
+22. Что такое `try-with-resources`? Как работает эта конструкция? 
+23. Что такое ресурс в конструкции `try-with-resources`? 
+24. Что будет если при закрытии ресурса вылетит исключение в конструкции `try-with-resources`?
+25. Что такое подавленные исключения? 
+26. Как достать подавленное исключение?
 
 ## Threads
 
@@ -2514,4 +2514,145 @@ class Example {
         }
     }
 }
+```
+
+
+### 22. Что такое `try-with-resources`? Как работает эта конструкция?
+
+`try-with-resources` - это конструкция, использующаяся когда нам нужно поработать с ресурсами, которые должны быть
+закрыты в конце. Благодаря этой конструкции мы можем не беспокоиться о том, что мы не закроем вручную какие-то ресурсы,
+поскольку они закроются автоматически.
+Стоит отметить, что ресурсы должны реализовывать интерфейс `java.lang.AutoCloseable`, в котором декларируется всего один
+метод `close()`. Этот метод и будет вызван для закрытия ресурсов.
+
+Синтаксис
+
+```
+try (ресурс_1_инициализация; ресурс_2_инициализация; ...) {
+    // Код, использующий ресурсы
+} catch (исключение) {
+    // Обработка исключения
+}
+```
+
+Пример:
+
+```java
+class Example {
+    public class TryWithResourcesExample {
+
+        public static void main(String[] args) {
+            try (MyResource resource = new MyResource()) {
+                resource.doSomething();
+            } catch (Exception e) {
+                System.out.println("Произошла ошибка: " + e.getMessage());
+            }
+        }
+    }
+
+    static class MyResource implements AutoCloseable {
+        public void doSomething() throws Exception {
+            System.out.println("Выполняем действия с ресурсом");
+            throw new Exception("Пример ошибки");
+        }
+
+        @Override
+        public void close() throws Exception {
+            System.out.println("Ресурс закрыт");
+        }
+    }
+}
+```
+
+### 23. Что такое ресурс в конструкции `try-with-resources`?
+
+Ресурс - это объект, который реализует интерфейс `java.lang.AutoCloseable` или `java.io.Closeable`.
+Ресурс - это объект с которым мы хотим поработать и после корректно его закрыть, чтобы не допустить утечек памяти и
+обеспечить правильное освобождение ресурсов.
+
+### 24. Что будет если при закрытии ресурса вылетит исключение в конструкции `try-with-resources`?
+
+Если блок `try` завершается корректно, то мы просто увидим исключение полученное при закрытии ресурса. Но если
+блок `try` упал с ошибкой и произошла ошибка при закрытии ресурсов, то мы увидим ошибку из блока `try`, а ошибка при
+закрытии ресурсов будет "подавлена". Это сделано для того, чтобы мы не упустили "важную" ошибку из блока `try`.
+Подавленные ошибки можно получить с помощью метода `getSuppressed()`.
+
+Пример с корректным завершением блока `try`:
+
+```java
+class Example {
+    public static void main(String[] args) {
+        try (MyResource resource = new MyResource()) {
+            resource.doSomething();
+        } catch (Exception e) {
+            System.out.println("Произошла ошибка: " + e.getMessage()); //
+
+            Throwable[] suppressed = e.getSuppressed();
+            for (Throwable t : suppressed) {
+                System.out.println("Подавлено: " + t);
+            }
+        }
+    }
+
+    static class MyResource implements AutoCloseable {
+        public void doSomething() throws Exception {
+            System.out.println("Выполняем действия с ресурсом");
+        }
+
+        @Override
+        public void close() throws Exception {
+            System.out.println("Закрываем ресурс");
+            throw new Exception("Ошибка при закрытии ресурса");
+        }
+    }
+}
+```
+
+Вывод в консоль:
+
+```
+Выполняем действия с ресурсом
+Закрываем ресурс
+Произошла ошибка: Ошибка при закрытии ресурса
+```
+
+Пример когда `try` упал с ошибкой:
+
+```java
+class Example {
+
+    public static void main(String[] args) {
+        try (MyResource resource = new MyResource()) {
+            resource.doSomething();
+        } catch (Exception e) {
+            System.out.println("Произошла ошибка: " + e.getMessage());
+            Throwable[] suppressed = e.getSuppressed();
+            for (Throwable t : suppressed) {
+                System.out.println("Подавлено: " + t);
+            }
+        }
+    }
+
+    static class MyResource implements AutoCloseable {
+        public void doSomething() throws Exception {
+            System.out.println("Выполняем действия с ресурсом");
+            throw new Exception("Ошибка внутри ресурса");
+        }
+
+        @Override
+        public void close() throws Exception {
+            System.out.println("Закрываем ресурс");
+            throw new Exception("Ошибка при закрытии ресурса");
+        }
+    }
+}
+```
+
+Вывод в консоль:
+
+```
+Выполняем действия с ресурсом
+Закрываем ресурс
+Произошла ошибка: Ошибка внутри ресурса
+Подавлено: java.lang.Exception: Ошибка при закрытии ресурса
 ```
