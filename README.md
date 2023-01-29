@@ -1,40 +1,37 @@
-# Подготовка к собеседованию на Java разработчика
+# Preparing for a Java Developer Interview
 
-Этот репозиторий содержит полезные материалы, алгоритмические задачи и вопросы по Java, которые помогут вам успешно
-подготовиться к техническому собеседованию на позицию Java разработчика.
+This repository contains helpful materials, algorithmic tasks, and Java questions to help you successfully prepare for a
+technical interview for a Java developer position.
 
 ## Содержание
 
-1. [Алгоритмические задачи](./algorithms)
-2. [Вопросы по Java](./interview-questions)
+1. [Algorithmic problems](./algorithms)
+2. [Java interview questions](./interview-questions)
 
-## 1. Алгоритмические задачи
+## 1. Algorithmic problems
 
-Модуль "algorithms" содержит решения для самых популярных алгоритмических задачек, которые часто можно встретить на
-собеседованиях.
+The 'algorithms' module contains solutions for the most popular algorithmic problems that can often be found on
+interviews.
 
-## 2. Топовые вопросы по Java
+## 2. Top Java interview questions
 
-Модуль "interview-questions" содержит популярные вопросы по Java, которые часто задают на технических собеседованиях.
-К каждому вопросу прилагается подробный ответ, который поможет вам лучше понять тему и подготовиться к обсуждению на
-собеседовании. В этом разделе вы также найдете дополнительные материалы, которые помогут вам углубить свои знания в
-Java.
+The "interview-questions" module contains popular Java questions that are often asked in technical interviews.
+Each question is accompanied by a detailed answer to help you better understand the topic and prepare for the discussion
+on interviews. In this section you will also find additional resources to help you deepen your knowledge of Java.
 
-## Как использовать данный репозиторий?
+## How to use this repository?
 
-Вы можете клонировать этот репозиторий на свой компьютер, чтобы локально изучать решения алгоритмических задач и изучать
-вопросы по Java. Вы также можете внести свои собственные улучшения, добавить новые задачи или вопросы, если считаете их
-полезными для других пользователей.
+You can `fork` this repository on your computer to study algorithmic problem solutions locally and learn Java questions.
+You can also make your own improvements, add new tasks or questions as you see fit useful to other users.
 
-Мы приветствуем ваши вклады и предложения! Если вы хотите внести изменения или добавить что-то новое, просто создайте
-pull request, и мы рассмотрим вашу заявку на включение изменений в проект.
+We welcome your contributions and suggestions! If you want to make changes or add something new, just create
+pull request, and we will review your request to include the changes in the project.
 
-## Лицензия
+## License
 
-Этот проект распространяется под лицензией [MIT](./LICENSE). Пожалуйста, ознакомьтесь с лицензией перед использованием
-этого проекта.
+This project is distributed under the [MIT](./LICENSE) license. Please read the license before using this project.
 
 -------------------------------------------------------------------------------
 
-Мы надеемся, что этот репозиторий поможет вам успешно подготовиться к собеседованию на позицию Java разработчика. Удачи
-в вашем обучении и прохождении собеседований!
+We hope this repository will help you successfully prepare for your Java Developer interview. Good luck in your training
+and interviewing!
