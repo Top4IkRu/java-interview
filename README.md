@@ -3,7 +3,7 @@
 This repository contains helpful materials, algorithmic tasks, and Java questions to help you successfully prepare for a
 technical interview for a Java developer position.
 
-## Содержание
+## Content
 
 1. [Algorithmic problems](./algorithms)
 2. [Java interview questions](./interview-questions)
