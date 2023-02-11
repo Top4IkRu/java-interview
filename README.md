@@ -7,15 +7,16 @@ technical interview for a Java developer position.
 
 1. [Algorithmic problems](./algorithms)
 2. [Java interview questions](./interview-questions)
+3. [Must have tools](tools.md)
 
 ## 1. Algorithmic problems
 
-The 'algorithms' module contains solutions for the most popular algorithmic problems that can often be found on
+The [algorithms module](/algorithms) contains solutions for the most popular algorithmic problems that can often be found on
 interviews.
 
 ## 2. Top Java interview questions
 
-The "interview-questions" module contains popular Java questions that are often asked in technical interviews.
+The [interview-questions module](/interview-questions) contains popular Java questions that are often asked in technical interviews.
 Each question is accompanied by a detailed answer to help you better understand the topic and prepare for the discussion
 on interviews. In this section you will also find additional resources to help you deepen your knowledge of Java.
 
