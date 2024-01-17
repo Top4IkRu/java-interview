@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
-public class Task4 {
+public class Hello2024_Task4 {
     public static PrintWriter out;
 
     private static class MyScanner {

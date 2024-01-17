@@ -1,7 +1,9 @@
 import java.io.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 
-public class Task2 {
+public class Round_919_Task1 {
     public static PrintWriter out;
 
     private static class MyScanner {
@@ -50,18 +52,39 @@ public class Task2 {
         MyScanner sc = new MyScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out));
 
-        int n = sc.nextInt();
-        for (int i = 0; i < n; i++) {
-            int len = sc.nextInt();
-            char[] chars = sc.nextLine().toCharArray();
-            int counter = 0;
-            for (char c : chars) {
-                if (c == '+') counter++;
-                else counter--;
+
+        int caseCounter = sc.nextInt();
+        for (int i = 0; i < caseCounter; i++) {
+
+            int ruleCounter = sc.nextInt();
+
+            long l = 0;
+            long r = Long.MAX_VALUE;
+            Set<Long> ex = new HashSet<>();
+            for (int j = 0; j < ruleCounter; j++) {
+                int ruleNumber = sc.nextInt();
+                long ruleValue = sc.nextInt();
+                if (ruleNumber == 1) {
+                    l = Math.max(ruleValue, l);
+                } else if (ruleNumber == 2) {
+                    r = Math.min(ruleValue, r);
+                } else {
+                    ex.add(ruleValue);
+                }
             }
-            out.println(Math.abs(counter));
+
+            long result;
+            if (r < l) result = 0;
+            else if (r == l) {
+                result = ex.contains(r) ? 0 : 1;
+            } else {
+                long finalL = l;
+                long finalR = r;
+                result = r - l + 1 - ex.stream().filter(e -> e >= finalL && e <= finalR).count();
+            }
+
+            out.println(result);
         }
         out.close();
     }
-
 }

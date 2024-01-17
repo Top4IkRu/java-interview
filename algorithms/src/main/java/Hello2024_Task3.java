@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class Task1 {
+public class Hello2024_Task3 {
     public static PrintWriter out;
 
     private static class MyScanner {
@@ -50,15 +50,31 @@ public class Task1 {
         MyScanner sc = new MyScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out));
 
-        int t = sc.nextInt();
-        for (int i = 0; i < t; i++) {
-            int a = sc.nextInt();
-            int b = sc.nextInt();
+        int count = sc.nextInt();
+        for (int k = 0; k < count; k++) {
 
-            out.println((a + b) % 2 == 0 ? "Bob" : "Alice");
+            int counter = 0;
+            int sPrev = Integer.MAX_VALUE;
+            int tPrev = Integer.MAX_VALUE;
+
+            int n = sc.nextInt();
+            for (int j = 0; j < n; j++) {
+                int a = sc.nextInt();
+                if (a <= sPrev && a <= tPrev) {
+                    if (sPrev <= tPrev) sPrev = a;
+                    else tPrev = a;
+                } else if (a > sPrev && a > tPrev) {
+                    if (sPrev <= tPrev) sPrev = a;
+                    else tPrev = a;
+                    counter++;
+                } else if (a > sPrev) {
+                    tPrev = a;
+                } else {
+                    sPrev = a;
+                }
+            }
+            out.println(counter);
         }
-
         out.close();
     }
-
 }
